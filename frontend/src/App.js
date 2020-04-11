@@ -14,10 +14,19 @@ function App() {
     });
   }, [])
 
-  function handleAddProject() {
+  async function handleAddProject() {
     //projects.push(`Novo projeto ${Date.now()}`); // muda o projects, é mutavel
 
-    setProjects([...projects, `Novo projeto ${Date.now()}`]); // aqui aplica-se imutabilidade
+    //setProjects([...projects, `Novo projeto ${Date.now()}`]); // aqui aplica-se imutabilidade
+
+    const response = await api.post('projects', {
+      title: `Novo projeto ${Date.now()}`,
+	    owner: "Louc"
+    });
+
+    const project = response.data;
+
+    setProjects([...projects, project]);
   }
 
   return (
